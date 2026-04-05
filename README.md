@@ -19,7 +19,7 @@ This is Lounge. Currently a prototype digital room and a social room for you and
 
 # What will come in the future.
 * I have started creating sprites and animations for avatars, fashion items, and room items. It's a hefty process but I'm enjoying the creativity aspects.
-* More backend coding. I am also in process of building backend infrastructre. While Supabase is a good tool, it has limitations in worldwide access. I'm diving into more options for this. Smooth multi party access is a key goal.
+* More backend coding. I am also in process of building backend infrastructre. I'm diving into more options for this. Smooth multi party access is a key goal.
 * As for frontend, more pages and components are built, specifically: Hub World, Store, Settings, and StreetPass Discovery.
 * Key goal of mine is to create interconnected ecosystem for Remixr, Wavr, and Lounge. In this way:
   
