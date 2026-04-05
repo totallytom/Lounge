@@ -1,0 +1,76 @@
+---
+alwaysApply: true
+---
+- Use Zustand for global state. Do not use Redux.
+- All database interactions must happen via Supabase SDK.
+- Decouple business logic (hooks) from UI components.
+- When creating a new feature, propose a plan in Markdown first before writing code.
+
+---
+description: Enforce technical architecture, state management, and Supabase integration patterns.
+globs: ["src/**/*.{ts,tsx}", "supabase/functions/**/*.ts"]
+---
+
+# Lounge Technical Architecture Rules
+
+## State Management (Zustand)
+- **Store Separation:** Create separate stores for `useUserStore` (auth/profile), `useWorldStore` (room/items), and `useUIStore` (modals/hud).
+- **Persistence:** Use Zustand middleware for persistent storage (localstorage) only for UI preferences, not for economy or inventory data.
+- **Action Pattern:** All state updates must be handled via defined actions within the store, never by direct mutation of the state object.
+
+## Database & Real-time (Supabase)
+- **Row-Level Security (RLS):** Every database query must assume RLS is active. Never ask for "select *" without ensuring a user session is present.
+- **Real-time Subscriptions:** Room state must be synchronized using Supabase Realtime. Components should subscribe on mount and clean up on unmount.
+- **Optimistic Updates:** Implement optimistic UI updates for Moon/Star transactions, but revert state if the Supabase response returns an error.
+
+## Component Architecture
+- **Logic Decoupling:** Keep business logic (data fetching, calculations) in custom hooks (e.g., `useRoomManager.ts`) rather than in UI components.
+- **Prop Types:** Every component must have a strictly typed `interface Props` defined at the top of the file. No use of `any`.
+- **Navigation:** Use a central `NavigationManager` or `Door` component to handle transitions between rooms to ensure state is cleared correctly.
+
+## Economy & Security
+- **Server Authority:** Moon and Star balance updates must be verified via Supabase Edge Functions or Database Functions. The frontend is for display and request only.
+- **Transaction Logging:** Every change in currency must trigger a write to the `transactions` log table.
+
+## File Organization
+- `/src/components/ui`: Atomic, reusable design elements.
+- `/src/components/world`: Game-like interactive components (Rooms, Items, Avatars).
+- `/src/hooks`: All business and data-fetching logic.
+- `/src/store`: All Zustand store definitions.all
+
+---
+alwaysApply: true
+---
+# Lounge: Project Architecture & Design System
+
+## 1. Core Vision
+Lounge is a cozy, pixel-art social platform centered on "slow media" and world-building. 
+- **Aesthetic:** Nintendo DS/Stardew Valley. 16-bit color palette. 
+- **Tech Goal:** Mobile-first, performance-optimized, pixel-perfect rendering.
+
+## 2. Tech Stack
+- **Frontend:** React (Vite), Tailwind CSS (for layout), Zustand (state management).
+- **Backend/Auth:** Supabase (PostgreSQL, Real-time).
+- **Styling Constraint:** All assets must use `image-rendering: pixelated;`.
+
+## 3. Data Schema Rules
+- **Profiles:** User ID, Moon Balance, Room Level.
+- **Inventory:** Links `user_id` to `asset_id` with `is_equipped` flag.
+- **Assets:** Registry of all items (furniture, stickers, currency).
+- **Transactions:** Audit log of all 'Moon' faucets and sinks.
+
+## 4. Interaction Guidelines
+- **Stickers as Chat:** Stickers are treated as `Asset` objects. When sending a chat, send `{type: 'sticker', asset_id: '...'}`.
+- **Economy:** No crypto. Purely internal utility token ("Moon"). Balance tracked via 'Faucet' and 'Sink' events.
+- **Navigation:** Spatial exploration (Door-based navigation) rather than standard list-scrolling.
+
+##5.Essential Pages (The App Shell)
+Since this is a Web/Mobile hybrid, you actually only need a few main routes.
+
+/ (The Landing/Login): A high-vibe entry page.
+
+/lounge (The Main World): The primary view where the active Room is rendered.
+
+/profile/:username (The Digital Home): A direct link to a specific user's public-facing Room.
+
+/settings: Account management and privacy controls.
