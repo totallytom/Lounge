@@ -17,6 +17,16 @@ This is Lounge. Currently a prototype digital room and a social room for you and
 * You can post images on your journal. Decorate your journal with as much images. Just like a book.
 * You can live or private your account in StreetPass Discovery, a feature where you can find nearby users.
 
+# What will come in the future.
+* I have started creating sprites and animations for avatars, fashion items, and room items. It's a hefty process but I'm enjoying the creativity aspects.
+* More backend coding. I am also in process of building backend infrastructre. While Supabase is a good tool, it has limitations in worldwide access. I'm diving into more options for this. Smooth multi party access is a key goal.
+* As for frontend, more pages and components are built, specifically: Hub World, Store, Settings, and StreetPass Discovery.
+* Key goal of mine is to create interconnected ecosystem for Remixr, Wavr, and Lounge. In this way:
+  + Songs from Remixr can be played in Lounge.
+  + Extract Widgets from Wavr into Lounge.
+  + Extract tracks from Remixr and create Widget in Wavr.
+  + Users have options to share account in these three platforms.
+
 # Current Progress
 This is your menu. It shows your Room, points, settings, and pathway to Journal and additional features coming in the future.
 
